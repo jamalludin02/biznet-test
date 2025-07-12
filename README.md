@@ -5,16 +5,14 @@
 
 Kunjungi halaman https://biznetnetworks.com/. Pada halaman tersebut, jelaskanlah kepada kami beberapa hal di bawah ini:
 
-1. Bagaimana menurut anda kondisi SEO dari website tersebut?
+1. **Bagaimana menurut anda kondisi SEO dari website tersebut?**
 
-Berdasarkan penilaian manual serta audit SEO otomatis dari SEO Site Checkup
+    Berdasarkan penilaian manual serta audit SEO otomatis dari SEO Site Checkup
 (https://seositecheckup.com/seo-audit/biznetnetworks.com),
     
 *   **Skor SEO:** 68/100, yang berada di bawah skor rata-rata 75/100 untuk 100 situs teratas. Ini menunjukkan bahwa ada ruang signifikan untuk perbaikan.
 *   **Masalah Ditemukan:** Terdapat 19 masalah penting (Failed), 7 peringatan (Warnings), dan 47 item yang sudah Passed.
 *   **Isu Prioritas Tinggi:** Beberapa isu prioritas tinggi meliputi kecepatan loading halaman, kurangnya atribut "alt" pada gambar, dan tidak menggunakan protokol HTTP/2.
-
-Apakah hal-hal yang bisa anda improve dari website tersebut agar dapat memaksimalkan SEO nya? 
 
 
 2. Apakah hal-hal yang bisa anda improve dari website tersebut agar dapat memaksimalkan SEO nya?
@@ -167,3 +165,40 @@ Langkah Menjalankan secara Lokal:
   http:localhost/biznet-test/php
   ```
 ## Problem Solving
+
+1. Cara Mengatasi 100 Request Sekaligus yang Membuat Aplikasi Hang
+
+- **Optimasi Database Pooling**  
+  - Atur koneksi: `max` wajar, `idle` timeout singkat  
+  - Tambahkan circuit breaker & retry policy  
+  - Pertimbangkan PgBouncer (PostgreSQL) atau proxy pooling sejenis  
+
+- **Profiling & Refactor Kode**  
+  - Profiling untuk temukan bottleneck (CPU, I/O)  
+  - Ubah ke asynchronous/non-blocking I/O  
+  - Manfaatkan caching (Redis/in-memory) untuk data yang sering diakses  
+
+- **Skalabilitas Infrastruktur**  
+  - Horizontal scaling di belakang load balancer  
+  - Konfigurasi auto-scaling berdasarkan metrik (CPU, antrean request)  
+  - Terapkan rate limiting/API gateway untuk atur burst traffic  
+
+- **Proteksi Terhadap Traffic Abnormal**  
+  - Identifikasi dan blok IP spam otomatis  
+  - Gunakan WAF/API gateway dengan detection rules  
+  - Terapkan token bucket/leaky bucket untuk smoothing  
+
+- **Monitoring & Observability**  
+  - Pasang metrik (response time, error rate, queue length)  
+  - Setup alert untuk lonjakan error atau latensi  
+  - Gunakan distributed tracing untuk melacak jalur request  
+
+2. Bagaimanakah cara anda mengatasi Race Condition pada aplikasi anda? Jelaskan beserta contohnya
+
+- **Pessimistic Locking (DB Transaction Lock)**  
+  Gunakan `SELECT … FOR UPDATE` di dalam transaksi untuk mengunci baris sebelum update:  
+  ```sql
+  START TRANSACTION;
+  SELECT stock FROM products WHERE id = 42 FOR UPDATE;
+  UPDATE products SET stock = stock - 1 WHERE id = 42;
+  COMMIT;
