@@ -56,7 +56,7 @@ Kunjungi halaman https://biznetnetworks.com/. Pada halaman tersebut, jelaskanlah
 
 ## MySQL
 Buatlah tabel di bawah ini : 
-```
+```sql
 create table employees (
    id (INT, PRIMARY KEY),
    name (VARCHAR),
@@ -71,7 +71,7 @@ create table departments (
 Dengan Table diatas:
 
 1. Buatlah query untuk menampilkan data employee_name, department_name dan salary.
-```
+```sql
 SELECT
 	a.name as employee_name,
 	b.department_name,
@@ -83,7 +83,7 @@ INNER JOIN departments b ON
 ```    
 
 2. Buatlah query untuk menampilkan rata - rata salary dengan order descending dari setiap departemen dengan format department_id, department_name dan average salary.
-```
+```sql
 SELECT
 	b.id department_id,
 	b.department_name,
@@ -97,13 +97,13 @@ ORDER BY AVG(a.salary) DESC;
 ```
 
 3. Buatlah query untuk update salary dari employee dengan penambahan sebanyak 5% dari salary pegawai saat ini.
-```
+```sql
 UPDATE employees
 SET salary = salary * 1.05;
 ```
 --- 
 Buatlah tabel di bawah ini : 
-```
+```sql
 create table orders (
    order_id (INT, PRIMARY KEY),
    customer_id (INT),
@@ -114,7 +114,7 @@ create table orders (
 Dengan tabel di atas : 
 
 1. Buatlah query untuk menampilkan semua order pada bulan ini dengan format order_id, customer_id, order_date dan total_amount.
-```
+```sql
 SELECT
 	a.order_id,
 	a.customer_id,
@@ -126,7 +126,7 @@ WHERE MONTH(a.order_date) = MONTH(NOW());
 ```    
 
 2. Buatlah query untuk menampilkan customer_id dan total_amount untuk order yang yang melebihi rata - rata total_amount dari semua order.
-```
+```sql
 SELECT customer_id, total_amount
 FROM orders
 WHERE total_amount > (
@@ -136,7 +136,7 @@ WHERE total_amount > (
 ```
 
 3. Buatlah query untuk menambahkan field bonus dengan tipe data decimal pada tabel di atas.
-```
+```sql
 ALTER TABLE orders add column bonus decimal;
 ```
 
@@ -161,9 +161,9 @@ Langkah Menjalankan secara Lokal:
    composer install
    
 2. Buka browser
-  ```  
-  http:localhost/biznet-test/php
-  ```
+     ```
+     http:localhost/biznet-test/php
+     ```
 ## Problem Solving
 
 1. Cara Mengatasi 100 Request Sekaligus yang Membuat Aplikasi Hang
