@@ -1,6 +1,38 @@
 
 # BIZNET TEST
 
+## 🚀 Quick Start
+
+### Using Docker (Recommended)
+```bash
+# Start all services
+docker-compose up -d
+
+# Or use the batch file (Windows)
+start-app.bat
+```
+
+### 📁 Project Structure
+
+```
+biznet/
+├── ai-knowledge/           # Vue.js AI Chat Frontend
+├── php/                    # PHP Barcode Generator
+├── docker-compose.yml      # Service orchestration
+├── entrypoint.sh          # Ollama auto-setup script
+├── start-app.bat          # Windows startup script
+└── nginx.conf             # Reverse proxy config
+```
+
+### 🔧 Services
+
+| Service | Port | Description |
+|---------|------|-------------|
+| **AI Chat Frontend** | 3000 | Vue.js chat interface |
+| **PHP Barcode Generator** | 8080 | Barcode/QR code generator |
+| **Ollama AI Service** | 11434 | Local AI model (Gemma3:1b) |
+| **Nginx Proxy** | 80 | Reverse proxy (optional) |
+
 ## SEO
 
 Kunjungi halaman https://biznetnetworks.com/. Pada halaman tersebut, jelaskanlah kepada kami beberapa hal di bawah ini:
@@ -202,3 +234,10 @@ Langkah Menjalankan secara Lokal:
   SELECT stock FROM products WHERE id = 42 FOR UPDATE;
   UPDATE products SET stock = stock - 1 WHERE id = 42;
   COMMIT;
+
+
+## AI KNOWLEDGE
+Setelah service ollama dan ai-knowledge dijalankan, buka browser link: 
+    ```
+     localhost:3000
+    ```
